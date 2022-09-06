@@ -93,7 +93,7 @@ public class InMemoryPersistenceTest {
         set.add(bp);
         set.add(bp2);
         set.add(bp3);
-        assertEquals(bps.getBlueprintsByAuthor("jhon"), set);
+        assertEquals(bps.getBlueprintsByAuthor("john"), set);
     }
 
     @Test
@@ -101,8 +101,9 @@ public class InMemoryPersistenceTest {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         BlueprintsServices bps = app.getBean(BlueprintsServices.class);
         Point[] pts=new Point[]{new Point(140, 140),new Point(115, 115)};
-        Blueprint bp=new Blueprint("_authorname_", "_bpname_ ",pts);
-        assertEquals(bps.getBlueprint("_authorname_","_bpname_"), bp);
+        Blueprint bp=new Blueprint("John bien esccrito", "Jhon bien esccrito ",pts);
+        bps.addNewBlueprint(bp);
+        assertEquals(bps.getBlueprint("John bien esccrito","Jhon bien esccrito "), bp);
     }
 
 

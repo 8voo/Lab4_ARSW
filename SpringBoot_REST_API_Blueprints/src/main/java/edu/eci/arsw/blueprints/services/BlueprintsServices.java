@@ -22,9 +22,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BlueprintsServices {
-   
 
-    BlueprintsPersistence bpp;
+    BlueprintsPersistence bpp = null;
 
     @Autowired
     public void setBlueprintsPersistence(BlueprintsPersistence bbp){this.bpp = bbp;}
@@ -34,6 +33,7 @@ public class BlueprintsServices {
     }
     
     public Set<Blueprint> getAllBlueprints(){
+
         return null;
     }
     
@@ -55,6 +55,7 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
+        System.out.println("aja" + bpp.getBluePrintByAuthor(author));
         return bpp.getBluePrintByAuthor(author);
 
     }
