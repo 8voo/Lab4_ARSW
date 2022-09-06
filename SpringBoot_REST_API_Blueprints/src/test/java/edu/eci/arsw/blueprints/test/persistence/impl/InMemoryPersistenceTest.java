@@ -10,9 +10,17 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.impl.InMemoryBlueprintPersistence;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import static org.junit.Assert.*;
 
 /**
@@ -65,8 +73,36 @@ public class InMemoryPersistenceTest {
         catch (BlueprintPersistenceException ex){
             
         }
-                
-        
+
+    }
+
+    @Test
+    public void deberiaObtenerBlueprintsPorAutor() throws BlueprintPersistenceException, BlueprintNotFoundException {
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = app.getBean(BlueprintsServices.class);
+        Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp=new Blueprint("john", "thepaint",pts);
+        bps.addNewBlueprint(bp);
+        Point[] pts2=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp2=new Blueprint("john", "thepaint2",pts);
+        bps.addNewBlueprint(bp2);
+        Point[] pts3=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp3=new Blueprint("john", "thepaint3",pts);
+        bps.addNewBlueprint(bp3);
+        Set<Blueprint> set = new HashSet<>();
+        set.add(bp);
+        set.add(bp2);
+        set.add(bp3);
+        assertEquals(bps.getBlueprintsByAuthor("jhon"), set);
+    }
+
+    @Test
+    public void deberiaObtenerBlueprintsPorAutorYNombre() throws BlueprintPersistenceException, BlueprintNotFoundException {
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = app.getBean(BlueprintsServices.class);
+        Point[] pts=new Point[]{new Point(140, 140),new Point(115, 115)};
+        Blueprint bp=new Blueprint("_authorname_", "_bpname_ ",pts);
+        assertEquals(bps.getBlueprint("_authorname_","_bpname_"), bp);
     }
 
 

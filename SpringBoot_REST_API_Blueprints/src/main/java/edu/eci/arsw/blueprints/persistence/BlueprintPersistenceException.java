@@ -5,6 +5,8 @@
  */
 package edu.eci.arsw.blueprints.persistence;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author hcadavid
