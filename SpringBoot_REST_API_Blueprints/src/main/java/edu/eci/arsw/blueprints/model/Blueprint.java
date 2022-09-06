@@ -45,6 +45,10 @@ public class Blueprint {
         this.points.add(p);
     }
 
+    public void setPoints(List<Point> newPoints){
+        this.points = newPoints;
+    }
+
     @Override
     public String toString() {
         return "Blueprint{" + "author=" + author + ", name=" + name + '}';
@@ -85,7 +89,7 @@ public class Blueprint {
         
         return true;
     }
-    
+
     
     
 }

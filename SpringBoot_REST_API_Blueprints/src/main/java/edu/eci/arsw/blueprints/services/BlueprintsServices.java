@@ -13,6 +13,8 @@ import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import edu.eci.arsw.blueprints.persistence.FiltersPersitence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +25,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class BlueprintsServices {
 
+    @Autowired
     BlueprintsPersistence bpp = null;
 
     @Autowired
+    FiltersPersitence fpp = null;
+
     public void setBlueprintsPersistence(BlueprintsPersistence bbp){this.bpp = bbp;}
 
     public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
         bpp.saveBlueprint(bp);
     }
-    
-    public Set<Blueprint> getAllBlueprints(){
 
-        return null;
+    public Set<Blueprint> getAllBlueprints(){
+        return bpp.getAllBlueprints();
     }
     
     /**
@@ -55,9 +59,16 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        System.out.println("aja" + bpp.getBluePrintByAuthor(author));
         return bpp.getBluePrintByAuthor(author);
 
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Blueprint filter(Blueprint bp){
+        return fpp.filterBlueprint(bp);
     }
     
 }

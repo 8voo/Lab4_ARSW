@@ -106,6 +106,24 @@ public class InMemoryPersistenceTest {
         assertEquals(bps.getBlueprint("John bien esccrito","Jhon bien esccrito "), bp);
     }
 
+    @Test
+    public void deberiaFuncionarFiltroRedundante() throws BlueprintNotFoundException {
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = app.getBean(BlueprintsServices.class);
+        Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10),new Point(10, 10),new Point(11, 10)};
+        Blueprint bp=new Blueprint("John bien esccrito", "Jhon bien esccrito ",pts);
+        bps.filter(bp);
+        assertEquals(bp.getPoints().toString(), "[0 0, 10 10, 11 10]");
+    }
 
+    @Test
+    public void deberiaFuncionarFiltroMuestreo() throws BlueprintNotFoundException {
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = app.getBean(BlueprintsServices.class);
+        Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10),new Point(10, 10),new Point(11, 10)};
+        Blueprint bp=new Blueprint("John bien esccrito", "Jhon bien esccrito ",pts);
+        bps.filter(bp);
+        assertEquals(bp.getPoints().toString(), "[0 0, 10 10]");
+    }
     
 }

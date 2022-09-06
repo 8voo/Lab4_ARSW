@@ -22,4 +22,9 @@ public class AnotherBluePrintsPersistance implements BlueprintsPersistence {
     public Set<Blueprint> getBluePrintByAuthor(String author) throws BlueprintNotFoundException {
         return null;
     }
+
+    @Override
+    public Set<Blueprint> getAllBlueprints() {
+        return null;
+    }
 }
